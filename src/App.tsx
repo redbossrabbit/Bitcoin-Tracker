@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useReducer } from "react";
+import { IStoreContext } from "./utils/interfaces";
+import reducer from "./common/reducer";
+import StoreContext from "./common/store";
 
-function App() {
+//components
+import Display from "./components/Display";
+
+export const AppContext: React.Context<IStoreContext> = React.createContext(
+  StoreContext
+);
+
+const App: React.FC = (): JSX.Element => {
+  const [state, dispatch] = useReducer(reducer, StoreContext);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider value={{ ...state, dispatch: dispatch }}>
+      <div>
+        <button onClick={() => dispatch({ type: "CLICK" })}>
+          click to update
+        </button>
+        <Display {...state} />
+      </div>
+    </AppContext.Provider>
   );
-}
-
+};
 export default App;
