@@ -1,8 +1,12 @@
 import React from "react";
 
+export interface IResponse {
+  description: string;
+  rate_float: number;
+}
 export interface IAction {
   type: string;
-  payload?: object;
+  payload?: IResponse;
 }
 export interface IStore {
   value: number;
@@ -10,5 +14,5 @@ export interface IStore {
 }
 export interface IStoreContext {
   store: IStore;
-  dispatch: React.Dispatch<IAction> | Function;
+  dispatch?: React.Dispatch<IAction> | Function;
 }

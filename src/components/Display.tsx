@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 
 //fetch
 import fetchData from "../common/fetchData";
 
 //interfaces
-import { IStoreContext } from "../utils/interfaces";
+import { IStoreContext, IResponse } from "../utils/interfaces";
 
 //components
 import Display2 from "./Display2";
@@ -15,18 +15,18 @@ export const Display: React.FC<IStoreContext> = ({
   store,
   dispatch
 }): JSX.Element => {
-  const handleFetch = () => {
-    fetchData(url).then((res: any) => {
-      dispatch({ type: "FETCH_DATA", payload: res });
+  const handleFetch = useCallback(() => {
+    fetchData(url).then((res: IResponse) => {
+      dispatch && dispatch({ type: "FETCH_DATA", payload: res });
     });
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       handleFetch();
     }, 30000);
     return () => clearTimeout(timeout);
-  }, [store, dispatch]);
+  }, [store.fetchedData, handleFetch]);
 
   return (
     <div>

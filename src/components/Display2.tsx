@@ -9,7 +9,7 @@ export const Display2: React.FC = (): JSX.Element => {
   return (
     <div>
       <div>{store.value}</div>
-      <button onClick={() => dispatch({ type: "CLICK" })}>
+      <button onClick={() => dispatch && dispatch({ type: "CLICK" })}>
         Change display 2
       </button>
     </div>
