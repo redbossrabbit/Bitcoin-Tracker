@@ -2,9 +2,11 @@ import React from "react";
 
 export interface IAction {
   type: string;
+  payload?: object;
 }
 export interface IStore {
-  app: number;
+  value: number;
+  fetchedData: any;
 }
 export interface IStoreContext {
   store: IStore;

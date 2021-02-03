@@ -12,14 +12,14 @@ export const AppContext: React.Context<IStoreContext> = React.createContext(
 
 const App: React.FC = (): JSX.Element => {
   const [state, dispatch] = useReducer(reducer, StoreContext);
-
+  const contextValue = { ...state, dispatch: dispatch };
   return (
-    <AppContext.Provider value={{ ...state, dispatch: dispatch }}>
+    <AppContext.Provider value={contextValue}>
       <div>
         <button onClick={() => dispatch({ type: "CLICK" })}>
           click to update
         </button>
-        <Display {...state} />
+        <Display {...contextValue} />
       </div>
     </AppContext.Provider>
   );

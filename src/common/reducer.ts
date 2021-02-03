@@ -1,4 +1,6 @@
 import React from "react";
+
+//interfaces
 import { IStoreContext, IAction } from "../utils/interfaces";
 
 const reducer: React.Reducer<IStoreContext, IAction> = (
@@ -7,8 +9,15 @@ const reducer: React.Reducer<IStoreContext, IAction> = (
 ): IStoreContext => {
   switch (action.type) {
     case "CLICK":
-      return { ...state, store: { app: (state.store.app += 1) } };
-
+      return {
+        ...state,
+        store: { ...state.store, value: (state.store.value += 1) }
+      };
+    case "FETCH_DATA":
+      return {
+        ...state,
+        store: { ...state.store, fetchedData: { ...action.payload } }
+      };
     default:
       return state;
   }

@@ -1,13 +1,15 @@
 import React, { useContext } from "react";
+
+//context
 import { AppContext } from "../App";
 
 export const Display2: React.FC = (): JSX.Element => {
-  const display = useContext(AppContext);
+  const { store, dispatch } = useContext(AppContext);
 
   return (
     <div>
-      <div>{display.store.app}</div>
-      <button onClick={() => display.dispatch({ type: "CLICK" })}>
+      <div>{store.value}</div>
+      <button onClick={() => dispatch({ type: "CLICK" })}>
         Change display 2
       </button>
     </div>

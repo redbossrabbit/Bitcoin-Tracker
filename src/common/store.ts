@@ -1,9 +1,10 @@
+//interfaces
 import { IStoreContext, IStore } from "../utils/interfaces";
 
-const Store: IStore = { app: 2 };
+const store: IStore = { value: 2, fetchedData: {} };
 
 const StoreContext: IStoreContext = {
-  store: Store,
+  store: store,
   dispatch: () => {}
 };
 

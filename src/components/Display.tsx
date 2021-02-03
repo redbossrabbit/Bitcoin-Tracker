@@ -1,14 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+//fetch
+import fetchData from "../common/fetchData";
+
+//interfaces
 import { IStoreContext } from "../utils/interfaces";
 
 //components
 import Display2 from "./Display2";
 
-export const Display: React.FC<IStoreContext> = ({ store }): JSX.Element => {
+const url = "https://api.coindesk.com/v1/bpi/currentprice.json";
+
+export const Display: React.FC<IStoreContext> = ({
+  store,
+  dispatch
+}): JSX.Element => {
+  const handleFetch = () => {
+    fetchData(url).then((res: any) => {
+      dispatch({ type: "FETCH_DATA", payload: res });
+    });
+  };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      handleFetch();
+    }, 30000);
+    return () => clearTimeout(timeout);
+  }, [store, dispatch]);
+
   return (
     <div>
-      <div>{store.app}</div>
+      <div>{store.value}</div>
       <Display2 />
+      <p>
+        {store.fetchedData.bpi
+          ? store.fetchedData.bpi.USD.rate_float
+          : handleFetch()}
+      </p>
     </div>
   );
 };
