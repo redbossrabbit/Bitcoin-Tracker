@@ -14,5 +14,5 @@ export interface IStore {
 }
 export interface IStoreContext {
   store: IStore;
-  dispatch?: React.Dispatch<IAction> | Function;
+  dispatch?: React.Dispatch<IAction>;
 }
