@@ -1,4 +1,6 @@
 import React, { useReducer } from "react";
+
+//state management
 import { IStoreContext } from "./utils/interfaces";
 import reducer from "./common/reducer";
 import StoreContext from "./common/store";
