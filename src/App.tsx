@@ -12,7 +12,7 @@ export const AppContext: React.Context<IStoreContext> = React.createContext(
   StoreContext
 );
 
-const App: React.FC = (): JSX.Element => {
+const App = () => {
   const [state, dispatch] = useReducer(reducer, StoreContext);
   const contextValue = { ...state, dispatch: dispatch };
   return (

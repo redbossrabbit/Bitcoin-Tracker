@@ -17,7 +17,7 @@ export const Display: React.FC<IStoreContext> = ({
 }): JSX.Element => {
   const handleFetch = useCallback(() => {
     fetchData(url).then((res: IResponse) => {
-      dispatch && dispatch({ type: "FETCH_DATA", payload: res });
+      dispatch({ type: "FETCH_DATA", payload: res });
     });
   }, [dispatch]);
 
