@@ -16,14 +16,14 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, StoreContext);
   const contextValue = { ...state, dispatch: dispatch };
   return (
-    <AppContext.Provider value={contextValue}>
-      <div>
-        <button onClick={() => dispatch({ type: "CLICK" })}>
-          click to update
-        </button>
+    <div>
+      <button onClick={() => dispatch({ type: "CLICK" })}>
+        click to update
+      </button>
+      <AppContext.Provider value={contextValue}>
         <Display {...contextValue} />
-      </div>
-    </AppContext.Provider>
+      </AppContext.Provider>
+    </div>
   );
 };
 export default App;

@@ -11,17 +11,22 @@ import Display2 from "./Display2";
 
 const url = "https://api.coindesk.com/v1/bpi/currentprice.json";
 
-export const Display: React.FC<IStoreContext> = ({
-  store,
-  dispatch
-}): JSX.Element => {
+export const Display: React.FC<IStoreContext> = ({ store, dispatch }) => {
   const handleFetch = useCallback(() => {
-    fetchData(url).then((res: IResponse) => {
-      dispatch({ type: "FETCH_DATA", payload: res });
-    });
+    fetchData(url)
+      .then((res: IResponse) => {
+        dispatch({ type: "FETCH_DATA", payload: res });
+      })
+      .catch(err => {
+        throw new Error().stack;
+      });
   }, [dispatch]);
 
   useEffect(() => {
+    if (!store.fetchedData.bpi) {
+      handleFetch();
+      return;
+    }
     const timeout = setTimeout(() => {
       handleFetch();
     }, 30000);
@@ -35,7 +40,7 @@ export const Display: React.FC<IStoreContext> = ({
       <p>
         {store.fetchedData.bpi
           ? store.fetchedData.bpi.USD.rate_float
-          : handleFetch()}
+          : "LOADING..."}
       </p>
     </div>
   );
